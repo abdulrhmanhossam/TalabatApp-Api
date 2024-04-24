@@ -8,7 +8,7 @@
         public ApiResponse(int statusCode, string message = null) 
         { 
             StatusCode = statusCode;
-            Message = message ?? GetDefaultMessageForStatusCode(int statusCode);
+            Message = message ?? GetDefaultMessageForStatusCode(statusCode);
         }
 
         private string GetDefaultMessageForStatusCode(int statusCode)

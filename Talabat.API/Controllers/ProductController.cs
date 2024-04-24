@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Talabat.API.Dtos;
+using Talabat.API.Errors;
 using Talabat.API.Interfaces;
 using Talabat.API.Specification;
 using Talabat.DAL.Entities;
@@ -52,7 +53,7 @@ namespace Talabat.API.Controllers
 
             var productDto = _mapper.Map<Product, ProductDto>(products);
             if (productDto == null)
-                return NotFound();
+                return NotFound(new ApiResponse(404));
 
             return Ok();
         }
