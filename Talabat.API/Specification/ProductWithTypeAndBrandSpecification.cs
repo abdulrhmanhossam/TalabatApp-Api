@@ -5,7 +5,10 @@ namespace Talabat.API.Specification
     public class ProductWithTypeAndBrandSpecification : BaseSpecification<Product>
     {
         // this ctor to get all product 
-        public ProductWithTypeAndBrandSpecification(string sort)
+        public ProductWithTypeAndBrandSpecification(string sort, int? typeId, int? brandId)
+            :base(p => 
+            (!typeId.HasValue || p.ProductTypeId == typeId.Value) && 
+            (!brandId.HasValue || p.ProductTypeId == brandId.Value))
         {
             AddInclude(p => p.ProductType);
             AddInclude(p => p.ProductBrand);

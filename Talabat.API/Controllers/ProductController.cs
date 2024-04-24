@@ -26,9 +26,9 @@ namespace Talabat.API.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<ActionResult<IReadOnlyList<ProductDto>>> GetProducts(string sort)
+        public async Task<ActionResult<IReadOnlyList<ProductDto>>> GetProducts(string sort, int? typeId, int? brandId)
         {
-            var specification = new ProductWithTypeAndBrandSpecification(sort);
+            var specification = new ProductWithTypeAndBrandSpecification(sort, typeId, brandId);
 
             var products = await _productRepository
                 .GetAllWithSpecificationAsync(specification);
