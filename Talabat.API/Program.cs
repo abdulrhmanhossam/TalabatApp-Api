@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Talabat.API.Errors;
 using Talabat.API.Helpers;
 using Talabat.API.Interfaces;
+using Talabat.API.Middlewares;
 using Talabat.API.Repository;
 using Talabat.DAL.Data;
 
@@ -42,6 +43,9 @@ builder.Services.Configure<ApiBehaviorOptions>( options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+app.UseMiddleware<ExceptionMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
