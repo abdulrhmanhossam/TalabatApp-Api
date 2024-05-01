@@ -1,7 +1,7 @@
-﻿using Talabat.API.Specification;
+﻿using Talabat.BLL.Specification;
 using Talabat.DAL.Entities;
 
-namespace Talabat.API.Interfaces
+namespace Talabat.BLL.Interfaces
 {
     public interface IGenericRepository<T> where T : BaseEntity
     {

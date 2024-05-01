@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Talabat.API.Errors;
 using Talabat.API.Helpers;
-using Talabat.API.Interfaces;
 using Talabat.API.Middlewares;
-using Talabat.API.Repository;
+using Talabat.BLL.Interfaces;
+using Talabat.BLL.Repository;
 using Talabat.DAL.Data;
 
 var builder = WebApplication.CreateBuilder(args);

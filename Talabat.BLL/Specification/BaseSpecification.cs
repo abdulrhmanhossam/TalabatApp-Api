@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace Talabat.API.Specification
+namespace Talabat.BLL.Specification
 {
     public class BaseSpecification<T> : ISpecification<T>
     {

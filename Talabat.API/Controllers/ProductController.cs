@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Talabat.API.Dtos;
 using Talabat.API.Errors;
-using Talabat.API.Interfaces;
-using Talabat.API.Specification;
+using Talabat.BLL.Interfaces;
+using Talabat.BLL.Specification;
 using Talabat.DAL.Entities;
 
 namespace Talabat.API.Controllers

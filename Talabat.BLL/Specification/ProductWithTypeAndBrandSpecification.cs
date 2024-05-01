@@ -1,6 +1,6 @@
 ﻿using Talabat.DAL.Entities;
 
-namespace Talabat.API.Specification
+namespace Talabat.BLL.Specification
 {
     public class ProductWithTypeAndBrandSpecification : BaseSpecification<Product>
     {

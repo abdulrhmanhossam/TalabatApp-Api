@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Talabat.DAL.Entities;
 
-namespace Talabat.API.Specification
+namespace Talabat.BLL.Specification
 {
     public class SpecificationsEvaluator<TEntity> where TEntity : BaseEntity 
     {
