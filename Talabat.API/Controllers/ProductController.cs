@@ -4,17 +4,18 @@ using Talabat.API.Dtos;
 using Talabat.API.Errors;
 using Talabat.BLL.Interfaces;
 using Talabat.BLL.Specification;
+using Talabat.BLL.Specification.Products;
 using Talabat.DAL.Entities;
 
 namespace Talabat.API.Controllers
 {
-    public class ProductController : BaseApiController
+    public class ProductsController : BaseApiController
     {
         private readonly IGenericRepository<Product> _productRepository;
         private readonly IGenericRepository<ProductBrand> _brandRepository;
         private readonly IGenericRepository<ProductType> _typeRepository; 
         private readonly IMapper _mapper;
-        public ProductController(IGenericRepository<Product>  productRepository, 
+        public ProductsController(IGenericRepository<Product>  productRepository, 
             IGenericRepository<ProductBrand> brandRepository, IGenericRepository<ProductType> typeRepository, 
             IMapper mapper)
         {
