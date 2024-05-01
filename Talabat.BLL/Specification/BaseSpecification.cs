@@ -13,6 +13,9 @@ namespace Talabat.BLL.Specification
             new List<Expression<Func<T, object>>>();
         public Expression<Func<T, object>> OrderBy { get; set; }
         public Expression<Func<T, object>> OrderByDescending { get; set; }
+        public int Take { get; set; }
+        public int Skip { get; set; }
+        public bool IsPaginationEnabled { get; set; }
 
         public BaseSpecification(Expression<Func<T, bool>> Criteria)
         {
@@ -31,6 +34,13 @@ namespace Talabat.BLL.Specification
         public void AddOrderByDescending(Expression<Func<T, object>> orderByDescending)
         {
            OrderByDescending = orderByDescending;
+        }
+
+        public void ApplyPagination(int skip, int take)
+        {
+            IsPaginationEnabled = true;
+            Skip = skip;
+            Take = take;
         }
     }
 }

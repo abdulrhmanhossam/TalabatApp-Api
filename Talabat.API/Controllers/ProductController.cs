@@ -28,9 +28,9 @@ namespace Talabat.API.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<ActionResult<IReadOnlyList<ProductDto>>> GetProducts(string sort, int? typeId, int? brandId)
+        public async Task<ActionResult<IReadOnlyList<ProductDto>>> Products([FromQuery]ProductSpecParams productParams)
         {
-            var specification = new ProductWithTypeAndBrandSpecification(sort, typeId, brandId);
+            var specification = new ProductWithTypeAndBrandSpecification(productParams);
 
             var products = await _productRepository
                 .GetAllWithSpecificationAsync(specification);
@@ -45,7 +45,7 @@ namespace Talabat.API.Controllers
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ProductDto>> GetProduct(int id)
+        public async Task<ActionResult<ProductDto>> Product(int id)
         {
             var specification = new ProductWithTypeAndBrandSpecification(id);
 
@@ -62,7 +62,7 @@ namespace Talabat.API.Controllers
         [HttpGet("brands")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<ActionResult<IReadOnlyList<ProductBrand>>> GetBrands()
+        public async Task<ActionResult<IReadOnlyList<ProductBrand>>> Brands()
         {
             var brands = await _brandRepository.GetAllAsync();
 
@@ -87,7 +87,7 @@ namespace Talabat.API.Controllers
 
         [HttpGet("types")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<ActionResult<IReadOnlyList<ProductType>>> GetTypes()
+        public async Task<ActionResult<IReadOnlyList<ProductType>>> Types()
         {
             var types = await _typeRepository.GetAllAsync();
 
