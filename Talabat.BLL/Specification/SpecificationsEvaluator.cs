@@ -18,6 +18,9 @@ namespace Talabat.BLL.Specification
             if (specification.OrderByDescending != null)
                 query = query.OrderByDescending(specification.OrderByDescending);
 
+            if (specification.IsPaginationEnabled)
+                query = query.Skip(specification.Skip).Take(specification.Take);
+
             query = specification.Includes.
                 Aggregate(query, (currentQuery, include) => currentQuery.Include(include));
 

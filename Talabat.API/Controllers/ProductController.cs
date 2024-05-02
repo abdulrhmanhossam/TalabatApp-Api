@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Talabat.API.Dtos;
 using Talabat.API.Errors;
+using Talabat.API.Helpers;
 using Talabat.BLL.Interfaces;
-using Talabat.BLL.Specification;
 using Talabat.BLL.Specification.Products;
 using Talabat.DAL.Entities;
 
@@ -28,18 +28,22 @@ namespace Talabat.API.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<ActionResult<IReadOnlyList<ProductDto>>> Products([FromQuery]ProductSpecParams productParams)
+        public async Task<ActionResult<Pagination<ProductDto>>> Products([FromQuery]ProductSpecParams productParams)
         {
             var specification = new ProductWithTypeAndBrandSpecification(productParams);
 
             var products = await _productRepository
                 .GetAllWithSpecificationAsync(specification);
 
-            var productsDto = _mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductDto>>(products);
-            if (productsDto == null)
+            var data = _mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductDto>>(products);
+            if (data == null)
                 return NoContent();
 
-            return Ok(productsDto);
+            var countSpec = new ProductWithFiltersForCountSpecification(productParams);
+
+            var count = await _productRepository.GetCountAsync(countSpec);
+
+            return Ok(new Pagination<ProductDto>((int)productParams.PageIndex, productParams.PageSize, count, data));
         }
 
         [HttpGet("{id:int}")]
@@ -56,7 +60,7 @@ namespace Talabat.API.Controllers
             if (productDto == null)
                 return NotFound(new ApiResponse(404));
 
-            return Ok();
+            return Ok(productDto);
         }
 
         [HttpGet("brands")]
