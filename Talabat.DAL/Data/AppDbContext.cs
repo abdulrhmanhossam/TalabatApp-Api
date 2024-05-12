@@ -19,20 +19,6 @@ namespace Talabat.DAL.Data
         public DbSet<ProductType> ProductTypes { get; set; }
         public DbSet<ProductBrand> ProductBrands { get; set; }
 
-
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-
-            var configuration = new ConfigurationBuilder().
-                AddJsonFile("appsettings.json").Build();
-            var connectionString = configuration.GetSection("connectionString")
-                .GetSection("DefaultConnection").Value;
-
-            optionsBuilder.UseSqlServer(connectionString);
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
