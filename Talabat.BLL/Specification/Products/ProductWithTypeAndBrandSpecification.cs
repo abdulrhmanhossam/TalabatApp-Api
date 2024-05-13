@@ -7,6 +7,7 @@ public class ProductWithTypeAndBrandSpecification : BaseSpecification<Product>
     // this ctor to get all product 
     public ProductWithTypeAndBrandSpecification(ProductSpecParams productParams)
         : base(p =>
+        (string.IsNullOrEmpty(productParams.Search) || p.Name.ToLower().Contains(productParams.Search)) &&
         (!productParams.TypeId.HasValue || p.ProductTypeId == productParams.TypeId.Value) &&
         (!productParams.BrandId.HasValue || p.ProductBrandId == productParams.BrandId.Value))
     {
