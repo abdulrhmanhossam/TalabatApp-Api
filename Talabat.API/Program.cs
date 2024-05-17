@@ -12,7 +12,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<AppDbContext>();
-
 builder.Services.AddDbContext<AppIdentityDbContext>();
 
 builder.Services.AddSingleton<IConnectionMultiplexer>(s => 
@@ -21,7 +20,7 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(s =>
     return ConnectionMultiplexer.Connect(connection);
 });
 
-
+builder.Services.AddIdentityServiceExtension();
 
 builder.Services.AddApplicationServicesExtension();
 
