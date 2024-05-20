@@ -15,6 +15,36 @@ public class AccountController : BaseApiController
         _signInManager = signInManager;
     }
 
+    [HttpPost("Register")]
+    public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
+    {
+        var user = new AppUser
+        {
+            Email = registerDto.Email,
+            UserName = registerDto.Email.Split('@')[0],
+            DisplayName = registerDto.DisplayName,
+            PhoneNumber = registerDto.PhoneNumber,
+            Address = new Addsress
+            {
+                FirstName = registerDto.FirstName,
+                LastName = registerDto.LastName,
+                City = registerDto.City,
+                Country = registerDto.Country,
+                Street = registerDto.Street,
+            }
+        };
+        var result = await _userManager.CreateAsync(user, registerDto.Password);
+        if (!result.Succeeded)
+            return BadRequest(new ApiResponse(400));
+
+        return Ok(new UserDto
+        {
+            DisplayName = user.DisplayName,
+            Email = user.Email,
+            Token = "this will be token"
+        });
+    }
+
     [HttpPost("Login")]
     public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
     {
@@ -31,6 +61,7 @@ public class AccountController : BaseApiController
         {
             DisplayName = user.DisplayName,
             Email = user.Email,
+            Token = "this will be token"
         });
     }
 }
