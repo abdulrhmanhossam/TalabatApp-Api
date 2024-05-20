@@ -11,6 +11,9 @@ public static class IdentityServiceExtension
         { 
             
         }).AddEntityFrameworkStores<AppIdentityDbContext>();
+        
+        services.AddAuthentication();
+
         return services;
     }
 }

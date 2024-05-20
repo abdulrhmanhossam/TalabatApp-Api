@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
 using Talabat.API.Extensions;
 using Talabat.API.Middlewares;
 using Talabat.DAL.Data;
+using Talabat.DAL.Entities.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +29,7 @@ builder.Services.AddApplicationServicesExtension();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -46,5 +49,21 @@ app.UseStaticFiles();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+try
+{
+    var identityContext = services.GetRequiredService<AppIdentityDbContext>();
+    await identityContext.Database.MigrateAsync();
+
+    var userManager = services.GetRequiredService<UserManager<AppUser>>();
+    await AppIdentityDbContextSeed.SeedUsersAysnc(userManager);
+}
+catch (Exception ex)
+{
+    var logger = services.GetService<ILogger<Program>>();
+    logger.LogError(ex, "An error occurred during migration");
+}
 
 app.Run();
