@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Talabat.API.Dtos;
 using Talabat.API.Errors;
@@ -76,19 +77,6 @@ namespace Talabat.API.Controllers
             return Ok(brands);
         }
 
-        //[HttpGet("brand/{id:int}")]
-        //public async Task<ActionResult<ProductBrand>> GetBrand(int id)
-        //{
-        //    var brand = await _brandRepository.GetByIdAsync(id);
-
-        //    if (brand == null)
-        //    {
-        //        return StatusCode(404, "Resource was not Found");
-        //    }
-
-        //    return Ok(brand);
-        //}
-
         [HttpGet("types")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult<IReadOnlyList<ProductType>>> Types()
@@ -100,18 +88,5 @@ namespace Talabat.API.Controllers
 
             return Ok(types);
         }
-
-        //[HttpGet("type/{id:int}")]
-        //public async Task<ActionResult<ProductType>> GetType(int id)
-        //{
-        //    var type = await _typeRepository.GetByIdAsync(id);
-
-        //    if (type == null)
-        //    {
-        //        return StatusCode(404, "Resource was not Found");
-        //    }
-
-        //    return Ok(type);
-        //}
     }
 }

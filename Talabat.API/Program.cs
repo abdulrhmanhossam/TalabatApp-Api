@@ -22,7 +22,7 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(s =>
     return ConnectionMultiplexer.Connect(connection);
 });
 
-builder.Services.AddIdentityServiceExtension();
+builder.Services.AddIdentityServiceExtension(builder.Configuration);
 
 builder.Services.AddApplicationServicesExtension();
 
@@ -45,6 +45,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

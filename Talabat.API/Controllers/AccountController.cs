@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Talabat.API.Dtos;
 using Talabat.API.Errors;
+using Talabat.BLL.Interfaces;
 using Talabat.DAL.Entities.Identity;
 
 namespace Talabat.API.Controllers;
@@ -9,9 +10,13 @@ public class AccountController : BaseApiController
 {
     private readonly SignInManager<AppUser> _signInManager;
     private readonly UserManager<AppUser> _userManager;
-    public AccountController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager)
+    private readonly ITokenService _tokenService;
+
+    public AccountController(SignInManager<AppUser> signInManager,
+        UserManager<AppUser> userManager, ITokenService tokenService)
     {
         _userManager = userManager;
+        _tokenService = tokenService;
         _signInManager = signInManager;
     }
 
@@ -41,7 +46,7 @@ public class AccountController : BaseApiController
         {
             DisplayName = user.DisplayName,
             Email = user.Email,
-            Token = "this will be token"
+            Token = await _tokenService.CreateToken(user, _userManager)
         });
     }
 
@@ -61,7 +66,7 @@ public class AccountController : BaseApiController
         {
             DisplayName = user.DisplayName,
             Email = user.Email,
-            Token = "this will be token"
+            Token = await _tokenService.CreateToken(user, _userManager)
         });
     }
 }
