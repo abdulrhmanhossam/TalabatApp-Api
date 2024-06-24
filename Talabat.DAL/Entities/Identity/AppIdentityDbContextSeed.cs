@@ -13,7 +13,7 @@ public class AppIdentityDbContextSeed
                 UserName = "abdulrahman",
                 Email = "abdulrahmn398@outlook.com",
                 PhoneNumber = "01004591659",
-                Address = new Addsress
+                Address = new Address
                 {
                     FirstName = "Abdulrahman",
                     LastName = "Hossam",

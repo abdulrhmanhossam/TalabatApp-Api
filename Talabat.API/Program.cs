@@ -26,8 +26,7 @@ builder.Services.AddIdentityServiceExtension(builder.Configuration);
 
 builder.Services.AddApplicationServicesExtension();
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerServices(builder.Configuration);
 
 
 var app = builder.Build();

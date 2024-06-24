@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace Talabat.DAL.Entities.Identity;
-public class Addsress
+public class Address
 {
     public int Id { get; set; }
     public string FirstName { get; set; }
